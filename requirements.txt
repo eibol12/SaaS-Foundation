@@ -1,2 +1,5 @@
 Django
 gunicorn
+python-decouple
+psycopg[binary]
+dj-database-url
