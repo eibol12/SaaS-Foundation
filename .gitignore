@@ -105,3 +105,9 @@ venv.bak/
 
 # IDE
 /.idea/
+
+# Ignore vendor static files
+src/staticfiles/vendors
+
+#Ignore local static file root
+local-cdn/
