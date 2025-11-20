@@ -6,14 +6,18 @@
         {% block headtitle %}
         	SaaS
         {% endblock %}
-
     </title>
+    {% include "base/css.html" %}
 </head>
 <body>
+
+    {% include "nav/navbar.html" %}
+
+    <main class="pt-16">
     <h1>This is from Base.html</h1>
     {% block content %}
-
     {% endblock %}
-
+    </main>
+    {% include "base/js.html" %}
 </body>
 </html>
