@@ -26,7 +26,7 @@ SECRET_KEY = config("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = os.environ.get("DEBUG") or False
-DEBUG = config("DJANGO_DEBUG", default=False, cast=bool)
+DEBUG = config("DJANGO_DEBUG", cast=bool)
 
 
 ALLOWED_HOSTS = [
@@ -91,7 +91,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-DATABASE_URL = config("DATABASE_URL", cast=str)
+DATABASE_URL = config("DATABASE_URL", default=None)
 CONN_MAX_AGE = config("CONN_MAX_AGE", cast=int, default=30)
 
 if DATABASE_URL is not None:
