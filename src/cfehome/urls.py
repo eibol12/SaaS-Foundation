@@ -9,5 +9,5 @@ urlpatterns = [
     path("about/", about_view, name="about"),
     path("login/", auth_views.login_view, name="login"),
     path("register/", auth_views.register_view, name="register"),
-    path("accounts/", include("allauth.urls"))
+    path("accounts/", include("allauth.urls")) #accounts/login/, accounts/register/
 ]
