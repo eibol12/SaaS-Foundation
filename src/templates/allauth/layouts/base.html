@@ -9,22 +9,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>
             {% block head_title %}
-            {% endblock head_title %}
+            {% endblock head_title %} - SaaS
         </title>
         {% block extra_head %}
             <link rel="stylesheet" href="{% static 'allauth_ui/output.css' %}">
         {% endblock extra_head %}
+        {% include "base/css.html" %}
     </head>
-    <body class="min-h-screen bg-base-300">
+    <body class="min-h-screen bg-base-300 pt-20">
+        {% include "nav/navbar.html" %}
         {% block body %}
-            {% if messages %}
-                {% for message in messages %}
-                    <div role="alert"
-                         class="text-sm md:text-base alert alert-{{ message.tags }}">
-                        <span><strong>{{ message }}</strong></span>
-                    </div>
-                {% endfor %}
-            {% endif %}
+            {% include "base/messages.html" with messages=messages%}
             {% block content %}
             {% endblock content %}
             <div class="mx-auto [&_a]:link text-sm flex flex-col md:flex-row items-center justify-center gap-3 mt-3">
@@ -63,5 +58,6 @@
         {% endblock body %}
         {% block extra_body %}
         {% endblock extra_body %}
+        {% include "base/js.html" %}
     </body>
 </html>
