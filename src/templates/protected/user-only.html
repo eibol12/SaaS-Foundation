@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block headtitle %}
+{{ page_title }} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<h1>You are in dear user {{request.user}}!</h1>
+{% endblock %}
+
+
+
+
+
+
+
+

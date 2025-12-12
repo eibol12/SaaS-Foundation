@@ -75,11 +75,12 @@ INSTALLED_APPS = [
     "allauth_ui",
     "allauth",
     "allauth.account",
+    "allauth.socialaccount",
     "widget_tweaks",
     "slippers",
-    # 'allauth.socialaccount.providers.github',
-
+    'allauth.socialaccount.providers.github',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -173,8 +174,11 @@ AUTHENTICATION_BACKENDS = [
 
 # Provider specific settings
 SOCIALACCOUNT_PROVIDERS = {
+    'github': {
+        "VERIFIED_EMAIL": True,
+    }
 }
-
+SITE_ID = 1
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
@@ -217,3 +221,12 @@ STORAGES = {
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {"console": {"class": "logging.StreamHandler"}},
+    "loggers": {
+        "django.request": {"handlers": ["console"], "level": "ERROR", "propagate": True},
+        "allauth": {"handlers": ["console"], "level": "DEBUG", "propagate": True},
+    },
+}
