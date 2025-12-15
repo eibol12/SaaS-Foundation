@@ -2,6 +2,11 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from visits.models import PageVisit
+from django.contrib.admin.views.decorators import staff_member_required
+from django.conf import settings
+from django.core.exceptions import PermissionDenied
+
+LOGIN_URL = settings.LOGIN_URL
 
 
 def home_view(request, *args, **kwargs):
@@ -42,6 +47,12 @@ def pw_protected_view(request, *args, **kwargs):
         return render(request, "protected/view.html")
     return render(request, "protected/entry.html")
 
-@login_required
+@login_required(login_url=LOGIN_URL)
 def user_only_view(request, *args, **kwargs):
+    return render(request, "protected/user-only.html")
+
+@login_required(login_url=LOGIN_URL)
+def staff_only_view(request, *args, **kwargs):
+    if not request.user.is_staff:
+        raise PermissionDenied
     return render(request, "protected/user-only.html")

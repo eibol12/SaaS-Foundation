@@ -79,6 +79,7 @@ INSTALLED_APPS = [
     "widget_tweaks",
     "slippers",
     'allauth.socialaccount.providers.github',
+    "profiles",
 ]
 
 
