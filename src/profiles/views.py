@@ -20,6 +20,7 @@ def profile_list_view(request):
 @login_required
 def profile_detail_view(request, username = None ,*args, **kwargs):
     user = request.user
+
     profile_user_obj = get_object_or_404(User, username=username)
     is_me = profile_user_obj == user
     context = {

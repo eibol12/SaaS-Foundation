@@ -80,6 +80,8 @@ INSTALLED_APPS = [
     "slippers",
     'allauth.socialaccount.providers.github',
     "profiles",
+    "subscriptions",
+    "customers",
 ]
 
 
