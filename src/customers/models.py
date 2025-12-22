@@ -18,4 +18,5 @@ class Customer(models.Model):
             if email is not None or email != "":
                 stripe_id = create_customer(email = email,raw = False)
                 self.stripe_id = stripe_id
+
         super().save(*args, **kwargs)
