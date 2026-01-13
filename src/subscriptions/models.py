@@ -22,6 +22,7 @@ class Subscription(models.Model):
     Subscription Plan = Stripe Product object
     """
     name = models.CharField(max_length=255)
+    subtitle = models.TextField(blank=True, null=True)
     active = models.BooleanField(default=True)
     groups = models.ManyToManyField(Group) #one-to-one
     permissions = models.ManyToManyField(Permission, limit_choices_to={
@@ -34,6 +35,7 @@ class Subscription(models.Model):
     featured = models.BooleanField(default=True, help_text="Featured subscription will be displayed on the home page")
     updated = models.DateTimeField(auto_now=True)
     timestamp = models.DateTimeField(auto_now_add=True)
+    features = models.TextField(help_text="Features for pricing separated by new line", blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -42,9 +44,18 @@ class Subscription(models.Model):
         permissions = SUBSCRIPTION_PERMISSIONS
         ordering = ["order", "featured", "-updated"]
 
+
+    def get_features_as_list(self):
+        if not self.features:
+            return []
+        return [x.strip() for x in self.features.split("\n")]
+
     def save(self, *args, **kwargs): #overriding the default save method
         if not self.stripe_id:
-            stripe_id = create_product(name = self.name, metadata = {"subscription_plan_id":self.stripe_id},raw = False)
+            stripe_id = create_product(name = self.name,
+                                       metadata = {
+                                           "subscription_plan_id":self.stripe_id
+                                       },raw = False)
             self.stripe_id = stripe_id
 
         super().save(*args, **kwargs)
@@ -86,6 +97,18 @@ class SubscriptionPrice(models.Model):
         if not self.subscription:
             return None
         return self.subscription.stripe_id
+
+    @property
+    def display_features_list(self):
+        if not self.subscription:
+            return []
+        return self.subscription.get_features_as_list()
+
+    @property
+    def display_sub_subtitle(self):
+        if not self.subscription.subtitle:
+            return ""
+        return self.subscription.subtitle
 
     def save(self, *args, **kwargs):
         if (not self.stripe_id and
