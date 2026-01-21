@@ -1,4 +1,4 @@
-name: 2 - Test Django Env Vars
+name: 3 - Test Django Env Vars
 
 on:
   workflow_dispatch:
