@@ -5,19 +5,35 @@
 {% endblock %}
 
 {% block content %}
-<section class="bg-white dark:bg-gray-900">
-  <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-      <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
-          <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Designed for business teams like yours</h2>
-          <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">Here at Flowbite we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
-      </div>
-      <div class="space-y-8 md:space-y-0 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
-          <!-- Pricing Cards -->
-            {% for price_obj in month_qs %}
-                {% include "subscriptions/snippets/pricing-card.html" with object=price_obj%}
-            {% endfor %}
 
+    <section class="bg-white dark:bg-gray-900" x-data="{ yearly: false }">
+      <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+          <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
+              <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Designed for business teams like yours</h2>
+              <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">Here at SaaS we focus on markets where technology, innovation, and capital can unlock long-term value and drive economic growth.</p>
+
+                <label class="inline-flex items-center cursor-pointer">
+                    <span class="select-none text-sm font-medium text-gray-900 dark:text-white">Monthly</span>
+                    <input type="checkbox" value="" class="sr-only peer" x-model="yearly">
+                    <div class="relative mx-3 w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                    <span class="select-none text-sm font-medium text-gray-900 dark:text-white">Yearly</span>
+                </label>
+
+          </div>
+          
+          <!-- Monthly Pricing -->
+          <div x-show="!yearly" class="space-y-8 md:space-y-0 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
+                {% for price_obj in month_qs %}
+                    {% include "subscriptions/snippets/pricing-card.html" with object=price_obj %}
+                {% endfor %}
+          </div>
+
+          <!-- Yearly Pricing -->
+          <div x-show="yearly" x-cloak class="space-y-8 md:space-y-0 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
+                {% for price_obj in year_qs %}
+                    {% include "subscriptions/snippets/pricing-card.html" with object=price_obj %}
+                {% endfor %}
+          </div>
       </div>
-  </div>
-</section>
+    </section>
 {% endblock %}

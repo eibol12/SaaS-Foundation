@@ -8,13 +8,13 @@
         {% endblock %}
     </title>
     {% include "base/css.html" %}
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body>
 
     {% include "nav/navbar.html" %}
 
     <main class="pt-16">
-    <h1>This is from Base.html</h1>
     {% block content %}
     {% endblock %}
     </main>
