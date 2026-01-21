@@ -8,6 +8,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      DJANGO_DEBUG: 0
+#      DJANGO_SECRET_KEY: not-good
     steps:
       - name: Checkout Code
         uses: actions/checkout@v6
@@ -15,6 +18,10 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: '3.12'
+      - name: Setup Django
+        run: |
+          MY_GEN_KEY=$(openssl rand -base64 32)
+          echo "DJANGO_SECRET_KEY=$MY_GEN_KEY" >> $GITHUB_ENV
       - name: Install Requirements
 #        working-directory: ./src
         run: |
@@ -22,7 +29,5 @@ jobs:
           python -m pip install -r requirements.txt
       - name: Django Tests
         working-directory: ./src
-        env:
-          DJANGO_SECRET_KEY: not-good
         run:
           python manage.py test
