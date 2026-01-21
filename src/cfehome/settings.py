@@ -17,6 +17,8 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+SESSION_COOKIE_SAMESITE = "Lax"
+
 #Email config
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = config("EMAIL_HOST", cast=str, default="smtp.gmail.com")
@@ -49,6 +51,7 @@ SECRET_KEY = config("DJANGO_SECRET_KEY")
 # DEBUG = os.environ.get("DEBUG") or False
 DEBUG = config("DJANGO_DEBUG", cast=bool)
 
+BASE_URL = config("BASE_URL", cast=str, default=None)
 
 ALLOWED_HOSTS = [
     ".railway.app" #https://saas.prod.railway.app
