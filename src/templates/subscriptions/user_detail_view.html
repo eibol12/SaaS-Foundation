@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block headtitle %}
+Your Subscription - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <h1 class ="text-lg font-medium">Your Subscription</h1>
+
+    <form action="" method="post"> {% csrf_token %}
+        <button type="submit">Refresh</button>
+    </form>
+
+    <a href="{{ subscription.get_cancel_url }}">Cancel Membership</a>
+
+    <h2 class="text-lg font-medium">Subscription Details</h2>
+    <p>Plan Name: {{ subscription.plan_name }}</p>
+    <p>Status: {{ subscription.status|title }}</p>
+    <p>Membership Age: {{ subscription.original_period_start|timesince }}</p>
+    <p>Current Period Start: {{ subscription.current_period_start }}</p>
+    <p>Current Period End: {{ subscription.current_period_end | timeuntil }} ({{subscription.current_period_end|date:"F d, Y"}})</p>
+    {% if messages %}
+        {% for message in messages %}
+<div role="alert" class="text-sm md:text-base alert alert-{{ message.tags }}">
+                <span><strong>{{ message }}</strong></span>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
