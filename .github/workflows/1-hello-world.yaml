@@ -2,9 +2,11 @@ name: 1 - Hello World Github actions
 
 on:
   workflow_dispatch:
-  push: #git push
-    branch:
-      - main
+#    schedule:
+#      - cron: '30 15 * * *' # Run daily at midnight
+#    push: #git push
+#      branch:
+#        - main
 
 jobs:
   hello:
