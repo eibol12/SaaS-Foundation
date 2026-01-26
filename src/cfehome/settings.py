@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
+import sys
 from email.policy import default
 
 from decouple import config
@@ -131,14 +132,18 @@ DATABASES = {
     }
 }
 DATABASE_URL = config("DATABASE_URL", default=None)
+DATABASE_URL_DIRECT = config("DATABASE_URL_DIRECT", default=None)
 CONN_MAX_AGE = config("CONN_MAX_AGE", cast=int, default=30)
 
 if DATABASE_URL is not None:
     import dj_database_url
+    db_url = DATABASE_URL
+    if "test" in sys.argv and DATABASE_URL_DIRECT:
+        db_url = DATABASE_URL_DIRECT
     DATABASES = {
         'default': dj_database_url.config(
-            default=DATABASE_URL,
-            conn_max_age=CONN_MAX_AGE,
+            default=db_url,
+            conn_max_age=0 if "test" in sys.argv else CONN_MAX_AGE,
             conn_health_checks=True
         ),
 
