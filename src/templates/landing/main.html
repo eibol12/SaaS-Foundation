@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block headtitle %}
+Build your SaaS Now - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+    {% include "landing/hero.html" %}
+    {% include "landing/features.html" %}
+    {% include "landing/proof.html" %}
+
+{% endblock %}

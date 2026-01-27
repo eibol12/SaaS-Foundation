@@ -21,7 +21,7 @@ def about_view(request, *args, **kwargs):
     except:
         percent = 0
 
-    html_template = "home.html"
+    html_template = "landing.html"
     my_title = "This is my title"
 
 

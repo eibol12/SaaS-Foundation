@@ -9,16 +9,21 @@
     </title>
     {% include "base/css.html" %}
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-{#    <script src="https://cdn.tailwindcss.com"></script>#}
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
 
-    {% include "nav/navbar.html" %}
+    <div class="antialiased bg-gray-50 dark:bg-gray-900">
+    {% include "dashboard/nav.html" %}
+    <!-- Sidebar -->
+    {% include "dashboard/sidebar.html" %}
 
-    <main class="pt-16">
+    <main class="p-4 md:ml-64 h-auto pt-20">
+
     {% block content %}
-    {% endblock %}
+    {% endblock content %}
     </main>
+    </div>
     {% include "base/js.html" %}
 </body>
 </html>
